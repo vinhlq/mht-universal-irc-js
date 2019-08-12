@@ -1,9 +1,12 @@
 # mht-universal-irc-js
 
-## 1. Mục tiêu
+## <a id='irc-docs'></a>1. Tài liệu
+  * [Bảng phân bố  irc-command-page-draff](irc-provider-page.md)
+  * [Sony irc-command-data-draff](irc-sony-command-data.md)
+## <a id='irc-purpose'></a>2. Mục tiêu
 * Xây dựng javascript-module cho mô hình **thu thập - quản lý - điều khiển** các thiết bị có giao thức IRC(infrared remote control)
 
-## <a name="define"></a>2. Định nghĩa
+## <a id="irc-defination"></a>3. Định nghĩa
   * IRC: infrared remote control
   * [irc-protocol](#mht-universal-irc-protocol-pubsub)
   * irc-provider: nhà cung cấp thiết bị irc
@@ -13,11 +16,11 @@
     * [irc-database-central](#irc-database-central)
     * [irc-database-device](#irc-database-device)
 
-## 3. <a id='universal-irc-device'></a>Phân loại thiết bị
+## <a id='universal-irc-device'></a>4. Phân loại thiết bị
   * universal-irc-zigbee-device
   * universal-irc-wifi-device
 
-## 4. Phân loại command
+## <a id="irc-command"></a>5. Phân loại command
   * <a id='irc-command-data-user'></a>irc-command-data-user
     * command do user khai báo
     * sử dụng trong nội bộ 1 hệ (gắn với user)
@@ -33,7 +36,7 @@
         * Script nằm dưới [universal-irc-zigbee-device](#universal-irc-zigbee-device) được định danh bằng scriptId 
         * Script có thể generate từ client và sử dụng command **irc-command-data-verified-raw**
 
-## 5. Mô tả chu trình
+## <a id="irc-flow"></a>6. Mô tả chu trình
   * Thu thập: learning
     * client wait event ([uirc-executed](#uirc-executed)) -> irc-data -> kiểm tra tồn tại -> **[irc-command-data-user](#irc-command-data-user)** -> lưu [irc-database-central](#irc-database-central)
     * managerment-client: phân loại **[irc-command-data-user](#irc-command-data-user)** -> verify -> **[irc-command-data-user](#irc-command-data-verified)** -> lưu [irc-database-central](#irc-database-central)
@@ -49,7 +52,7 @@
     * Theo dõi các command phát sinh khi user sử dụng remote control
     * client wait event ([uirc-executed](#uirc-executed))
 
-## <a id='irc-database'></a>6. irc-database
+## <a id='irc-database'></a>7. irc-database
 
 * Yêu cầu:
   * Định danh được các command
@@ -118,7 +121,7 @@
 * Đồng bộ irc-database-device
   > TODO
 
-## <a id='mht-universal-irc-protocol-pubsub'></a>7. mht-universal-irc-protocol-pubsub: draff
+## <a id='mht-universal-irc-protocol-pubsub'></a>8. mht-universal-irc-protocol-pubsub: draff
   * Mục tiêu:
     * Xây dựng giao thức truyền nhận dựa trên giao thức pubsub đã implement trên mht-zigbee-gateway-js
 

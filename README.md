@@ -120,14 +120,20 @@
   * Topic format
     * mqtt + iot-core
         > ${prefix}/action
+
         > ${prefix}/uirc-accepted
+
         > ${prefix}/uirc-rejected
+
         > ${prefix}/uirc-executed
 
     * socket.io
         > action
+
         > uirc-accepted
+        
         > uirc-rejected
+        
         > uirc-executed
 
   * payload

@@ -8,27 +8,40 @@
   * [irc-protocol](#mht-universal-irc-protocol-pubsub)
   * irc-provider: nhà cung cấp thiết bị irc
   * irc-device: thiết bị hỗ trợ irc-protocol
-  * universal-irc-device: thiết bị làm nhiệm chuyển tiếp giao thức irc
-    * universal-irc-zigbee-device
-    * universal-irc-wifi-device
   * irc-client: client điều khiển irc-device
   * [irc-database](#irc-database): db chứa các dữ liệu về command điều khiển
     * [irc-database-central](#irc-database-central)
     * [irc-database-device](#irc-database-device)
-  * irc-command-data-user
-    * command do user khai báo
-  * irc-command-data-verified
-    * command được hệ thống xác nhận 
 
-## 3. Mô tả chu trình
+## 3. <a id='universal-irc-device'></a>Phân loại thiết bị
+  * universal-irc-zigbee-device
+  * universal-irc-wifi-device
+
+## 4. Phân loại command
+  * <a id='irc-command-data-user'></a>irc-command-data-user
+    * command do user khai báo
+    * sử dụng trong nội bộ 1 hệ (gắn với user)
+  * <a id='irc-command-data-verified'></a>irc-command-data-verified
+    * command được hệ thống xác nhận
+    * sử dụng trên toàn hệ thống
+    * Phân loại:
+      * irc-command-data-verified-raw
+        * Là loại command chỉ chứa dữ liệu
+
+      * irc-command-data-verified-script
+        * Là loại command có áp dụng script
+        * Script nằm dưới [universal-irc-zigbee-device](#universal-irc-zigbee-device) được định danh bằng scriptId 
+        * Script có thể generate từ client và sử dụng command **irc-command-data-verified-raw**
+
+## 5. Mô tả chu trình
   * Thu thập: learning
-    * client chờ event ([uirc-executed](#uirc-executed)) -> irc-data -> kiểm tra tồn tại -> **irc-command-data-user** -> lưu irc-database-central
-    * managerment-client: phân loại irc-data-user -> verify -> **irc-command-data-verified** -> lưu irc-database-central
+    * client wait event ([uirc-executed](#uirc-executed)) -> irc-data -> kiểm tra tồn tại -> **[irc-command-data-user](#irc-command-data-user)** -> lưu [irc-database-central](#irc-database-central)
+    * managerment-client: phân loại **[irc-command-data-user](#irc-command-data-user)** -> verify -> **[irc-command-data-user](#irc-command-data-verified)** -> lưu [irc-database-central](#irc-database-central)
 
   * Thực thi: excute
-    * client send ([action-direct](#action-direct)) đối với irc-command-data-user
+    * client send ([action-direct](#action-direct)) đối với **[irc-command-data-user](#irc-command-data-user)**
 
-    * client send ([action-direct](#action-direct)) hoặc ([action-command](#action-command)) đối với irc-command-data-verified
+    * client send ([action-direct](#action-direct)) hoặc ([action-command](#action-command)) đối với **[irc-command-data-user](#irc-command-data-verified)**
 
     * client wait event ([uirc-accepted](#uirc-accepted)) or ([uirc-rejected](#uirc-rejected)) để xác nhận chu trình
 
@@ -36,7 +49,7 @@
     * Theo dõi các command phát sinh khi user sử dụng remote control
     * client wait event ([uirc-executed](#uirc-executed))
 
-## <a id='irc-database'></a>4. irc-database
+## <a id='irc-database'></a>6. irc-database
 
 * Yêu cầu:
   * Định danh được các command
@@ -58,14 +71,6 @@
     * db nằm trên universal-irc-device
     * Chứa 1 phần [irc-database-device](#irc-database-device)
     * tối ưu dung lượng lưu trữ < 1MB
-
-* Phân loại irc-command
-
-  * irc-command-raw
-    * Là loại command chỉ chứa dữ liệu
-
-  * irc-command-script
-    * Là loại command có áp dụng script
 
 * Kiến trúc irc-database-central
   > TODO
@@ -113,7 +118,7 @@
 * Đồng bộ irc-database-device
   > TODO
 
-## <a id='mht-universal-irc-protocol-pubsub'></a>5. mht-universal-irc-protocol-pubsub: draff
+## <a id='mht-universal-irc-protocol-pubsub'></a>7. mht-universal-irc-protocol-pubsub: draff
   * Mục tiêu:
     * Xây dựng giao thức truyền nhận dựa trên giao thức pubsub đã implement trên mht-zigbee-gateway-js
 
@@ -133,7 +138,7 @@
         > uirc-accepted
         
         > uirc-rejected
-        
+
         > uirc-executed
 
   * payload

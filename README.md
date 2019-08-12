@@ -1,8 +1,11 @@
 # mht-universal-irc-js
 
-## <a name="define"></a>Định nghĩa
+## 1. Mục tiêu
+* Xây dựng javascript-module cho mô hình **thu thập - quản lý - điều khiển** các thiết bị có giao thức IRC(infrared remote control)
+
+## <a name="define"></a>2. Định nghĩa
   * IRC: infrared remote control
-  * irc-protocol
+  * [irc-protocol](#mht-universal-irc-protocol-pubsub)
   * irc-provider: nhà cung cấp thiết bị irc
   * irc-device: thiết bị hỗ trợ irc-protocol
   * universal-irc-device: thiết bị làm nhiệm chuyển tiếp giao thức irc
@@ -17,11 +20,7 @@
   * irc-command-data-verified
     * command được hệ thống xác nhận 
 
-
-## Mục tiêu
-* Xây dựng javascript-module cho mô hình **thu thập - quản lý - điều khiển** các thiết bị có giao thức IRC(infrared remote control)
-
-## Mô tả chu trình
+## 3. Mô tả chu trình
   * Thu thập: learning
     * client chờ event ([uirc-executed](#uirc-executed)) -> irc-data -> kiểm tra tồn tại -> **irc-command-data-user** -> lưu irc-database-central
     * managerment-client: phân loại irc-data-user -> verify -> **irc-command-data-verified** -> lưu irc-database-central
@@ -37,7 +36,7 @@
     * Theo dõi các command phát sinh khi user sử dụng remote control
     * client wait event ([uirc-executed](#uirc-executed))
 
-## <a id='irc-database'></a>irc-database
+## <a id='irc-database'></a>4. irc-database
 
 * Yêu cầu:
   * Định danh được các command
@@ -46,6 +45,7 @@
     * irc-command-data-user
     * irc-command-data-verified
   * irc-database-central: Nằm trên client và các thiết bị có khả năng lưu trữ - tìm kiếm - đồng bộ
+  * irc-database-central: Chứa irc-database-device
   * irc-database-central: Phân chia mức độ tin cậy của command
   * irc-database-central: Quản lý multi-version-database cho universal-irc-device để phục vụ cho việc thay đổi cấu trúc db trong tương lai
 
@@ -56,6 +56,7 @@
 
   * <a id='irc-database-device'></a>irc-database-device
     * db nằm trên universal-irc-device
+    * Chứa 1 phần [irc-database-device](#irc-database-device)
     * tối ưu dung lượng lưu trữ < 1MB
 
 * Phân loại irc-command
@@ -70,6 +71,11 @@
   > TODO
 
 * Kiến trúc irc-database-device-version0
+  * irc-database-device chia nhỏ thành page và block
+    * irc-command-block: chứa 1 block data
+    * irc-command-provider-page: chứa 1 vùng data của 1 nhà cung cấp thiết bị
+  * page và block có kích thước cố định được định nghĩa trước
+
   * irc-database-device
     * irc-command-provider0-page0
       * irc-command-command-block0
@@ -92,21 +98,22 @@
 * Định danh irc-command
   * irc-command-block-id:
     * Để tối ưu dung lượng lưu trữ cho **irc-database-device**. Các command được chia block và định danh bẳng 3-bytes tối đa (2^24 == 16777216) irc-command-block
+    * **irc-command-id == irc-command-block-id** (first block)
   * irc-command-block-size:
       * ước lượng: 32-bytes
     * command có độ dài <= irc-command-block-size -> irc-command-size = irc-command-block-size
     * command có độ dài > irc-command-block-size -> irc-command-size = n*irc-command-block-size với n = irc-command-block-size / irc-command-block-size
 
-  * irc-command-provider-page:
-    * Vùng địa chỉ có size cố định được định nghĩa trước
-    * 1 nhà cung cấp tùy số lượng thiết bị có thể có 1 hoặc nhiều page
-    * irc-command-provider-pagesize:
-        * ước lượng: (number-of-device * number-of-command-per-device * number-of-block-per-command) = 1024-blocks
+* irc-command-provider-page:
+  * Vùng địa chỉ có size cố định được định nghĩa trước
+  * 1 nhà cung cấp tùy số lượng thiết bị có thể có 1 hoặc nhiều page
+  * irc-command-provider-pagesize:
+      * ước lượng: (number-of-device * number-of-command-per-device * number-of-block-per-command) = 1024-blocks
 
-  * Đồng bộ irc-database-device
-    > TODO
+* Đồng bộ irc-database-device
+  > TODO
 
-## mht-universal-irc-protocol-pubsub: draff
+## <a id='mht-universal-irc-protocol-pubsub'></a>5. mht-universal-irc-protocol-pubsub: draff
   * Mục tiêu:
     * Xây dựng giao thức truyền nhận dựa trên giao thức pubsub đã implement trên mht-zigbee-gateway-js
 

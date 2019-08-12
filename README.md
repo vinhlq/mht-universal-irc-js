@@ -34,7 +34,7 @@
 
       * irc-command-data-verified-script
         * Là loại command có áp dụng script
-        * Script nằm dưới [universal-irc-zigbee-device](#universal-irc-zigbee-device) được định danh bằng scriptId 
+        * Script nằm dưới [universal-irc-device](#universal-irc-device) được định danh bằng scriptId 
         * Script có thể generate từ client và sử dụng command **irc-command-data-verified-raw**
 
 ## <a id="irc-flow"></a>6. Mô tả chu trình

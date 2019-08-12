@@ -63,8 +63,7 @@
     * irc-command-data-verified
   * irc-database-central: Nằm trên client và các thiết bị có khả năng lưu trữ - tìm kiếm - đồng bộ
   * irc-database-central: Chứa irc-database-device
-  * irc-database-central: Phân chia mức độ tin cậy của command
-  * irc-database-central: Quản lý multi-version-database cho universal-irc-device để phục vụ cho việc thay đổi cấu trúc db trong tương lai
+  * irc-database-central: Quản lý **irc-database-device-multi-version** cho universal-irc-device để phục vụ cho việc thay đổi cấu trúc db trong tương lai
 
 * Phân loại database
 

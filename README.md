@@ -12,11 +12,12 @@
   * irc-provider: nhà cung cấp thiết bị irc
   * irc-device: thiết bị hỗ trợ irc-protocol
   * irc-client: client điều khiển irc-device
+  * universal-irc-device: thiết bị làm nhiệm chuyển tiếp giao thức irc
   * [irc-database](#irc-database): db chứa các dữ liệu về command điều khiển
     * [irc-database-central](#irc-database-central)
     * [irc-database-device](#irc-database-device)
 
-## <a id='universal-irc-device'></a>4. Phân loại thiết bị
+## <a id='universal-irc-device'></a>4. Phân loại thiết bị chuyển tiếp(universal-irc-device)
   * universal-irc-zigbee-device
   * universal-irc-wifi-device
 

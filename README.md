@@ -169,7 +169,7 @@
         }
         ```
 
-      * <a id='action-command'></a>action-commnd
+      * <a id='action-command'></a>action-command
         * action-request-by-commandId
           * timestamp: Thời điểm phát sinh command (unix epoch time)
           * version: db version

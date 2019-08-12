@@ -40,7 +40,7 @@
 ## <a id="irc-flow"></a>6. Mô tả chu trình
   * Thu thập: learning
     * client wait event ([uirc-executed](#uirc-executed)) -> irc-data -> kiểm tra tồn tại -> **[irc-command-data-user](#irc-command-data-user)** -> lưu [irc-database-central](#irc-database-central)
-    * management -client: phân loại **[irc-command-data-user](#irc-command-data-user)** -> verify -> **[irc-command-data-user](#irc-command-data-verified)** -> lưu [irc-database-central](#irc-database-central)
+    * management-client: phân loại **[irc-command-data-user](#irc-command-data-user)** -> verify -> **[irc-command-data-user](#irc-command-data-verified)** -> lưu [irc-database-central](#irc-database-central)
 
   * Thực thi: excute
     * client send ([action-direct](#action-direct)) đối với **[irc-command-data-user](#irc-command-data-user)**
